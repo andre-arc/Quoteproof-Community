@@ -1,13 +1,13 @@
 # Quoteproof Community
 
-<img src="https://gitlab.com/andre-arc/quoteproof-core/-/raw/master/assets/logo-128.png" width="64" alt="Quoteproof logo">
+<img src="https://raw.githubusercontent.com/andre-arc/Quoteproof/master/assets/logo-128.png" width="64" alt="Quoteproof logo">
 
 Free edition of Quoteproof: AI research where every quote is checked against its source web page, word for word, before it reaches your report. MIT licensed.
 
 ## Install (Claude Code)
 
 ```bash
-git clone https://gitlab.com/andre-arc/quoteproof-community.git ~/.claude/skills/quoteproof-community
+git clone https://github.com/andre-arc/Quoteproof-Community.git ~/.claude/skills/quoteproof-community
 ```
 
 Update later with `git -C ~/.claude/skills/quoteproof-community pull`.
@@ -51,7 +51,7 @@ python3 scripts/verify_quotes.py claims.json   # [{"claim", "source", "quote"}, 
 | SQLite docs: 78 quotes, all web pages | 77 verified; **1 real quote dropped** (it was cited to the wrong page) | 77 verified; **1 corrected** to the right page |
 | HTTP/3 papers: 83 quotes, 35 from PDFs | **47 checked**; 36 unreadable (35 PDFs + 1 blocked site) | **82 checked**; 1 blocked site |
 
-Data and method: [Quoteproof proof](https://gitlab.com/andre-arc/quoteproof-core/-/blob/master/proof/README.md).
+Data and method: [Quoteproof proof](https://github.com/andre-arc/Quoteproof/blob/master/proof/README.md).
 
 ## Run the tests
 
