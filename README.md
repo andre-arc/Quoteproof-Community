@@ -12,11 +12,11 @@ git clone https://github.com/andre-arc/Quoteproof-Community.git ~/.claude/skills
 
 Update later with `git -C ~/.claude/skills/quoteproof-community pull`.
 
-It works with any model. **Claude Code** and **opencode** both read `~/.claude/skills/`. For other agents that support `SKILL.md` skills (Cursor, Codex CLI, Gemini CLI and others), clone it into that agent's skills folder instead. The agent needs to be able to run shell commands and search the web.
+Made for **Claude Code** with Claude models: research runs on Haiku, the rest on your session's model. Other agents and models are not supported.
 
-Then ask your agent to research something, e.g. *"Research whether SQLite WAL mode helps concurrent writes."* The report lands in `.claude/outputs/<topic>.md` and ends with an audit line counting every quote checked, verified and dropped.
+Then ask Claude to research something, e.g. *"Research whether SQLite WAL mode helps concurrent writes."* The report lands in `.claude/outputs/<topic>.md` and ends with an audit line counting every quote checked, verified and dropped.
 
-Requires Python 3.9+ (standard library only), an agent that can run shell commands and search the web, and network access to the cited sites.
+Requires Python 3.9+ (standard library only), Claude Code, and network access to the cited sites.
 
 ## What it checks
 

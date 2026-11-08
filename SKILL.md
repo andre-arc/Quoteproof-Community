@@ -17,7 +17,7 @@ If `.claude/scratchpad/cache/<topic-slug>/` exists, reuse its file names as angl
 For each angle, collect about 8–15 claims as a JSON array of
 `{"claim": "...", "source": "<URL>", "quote": "<≤25-word verbatim excerpt from that page>"}`.
 Copy quotes exactly and in full; never paraphrase inside quotation marks. Each `claim` must say no more than its `quote`. Prefer primary sources that are web pages (this edition does not check PDFs). Write each angle to `.claude/scratchpad/cache/<topic-slug>/<angle>.json`.
-Use parallel subagents, one per angle, on a fast cheap model if available.
+Use parallel subagents, one per angle, on Claude Haiku.
 
 ## 3. Verify
 **a.** Remove duplicates and unfalsifiable marketing (count them as P). When sources disagree, keep both sides and report the disagreement. Merge survivors into `.claude/scratchpad/verified/<topic-slug>.candidates.json`.
