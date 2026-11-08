@@ -51,6 +51,10 @@ python3 scripts/verify_quotes.py claims.json   # [{"claim", "source", "quote"}, 
 
 Data and method: [Quoteproof proof](https://github.com/andre-arc/Quoteproof/blob/master/proof/README.md).
 
+## Review it
+
+Tried it on your own research? **[Share a review](https://github.com/andre-arc/Quoteproof-Community/issues/new?template=review.yml)**: your topic, the report's audit line, and whether it caught anything real or got something wrong. Honest results help most, including failures.
+
 ## Run the tests
 
 ```bash

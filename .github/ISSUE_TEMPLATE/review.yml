@@ -1,0 +1,88 @@
+name: Review Quoteproof
+description: Tried Quoteproof on your own research? Tell us what happened.
+title: "Review: <your topic>"
+labels: ["review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing Quoteproof. Honest results help most, including when it got something wrong.
+        It takes about 5 minutes. Only the first three questions are required.
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: What do you mostly do?
+      options:
+        - Researcher / academic
+        - Software developer
+        - Technical writer
+        - Analyst
+        - Student
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: topic
+    attributes:
+      label: What did you research?
+      description: The question you gave your agent.
+      placeholder: "e.g. Is Postgres logical replication safe across major versions?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: audit
+    attributes:
+      label: Audit line
+      description: Copy the last line of your report (the one starting "Removed … Checked … Kept …").
+      render: text
+    validations:
+      required: true
+
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Which agent did you use?
+      options:
+        - Claude Code
+        - opencode
+        - Cursor
+        - Codex CLI
+        - Gemini CLI
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: caught
+    attributes:
+      label: Did it catch a real problem?
+      description: A quote that wasn't on the page, or was cited to the wrong page. Paste the quote and the source if you can.
+    validations:
+      required: false
+
+  - type: textarea
+    id: wrong
+    attributes:
+      label: Did it get anything wrong?
+      description: A real quote it rejected, a page it couldn't read, or an instruction your agent didn't follow.
+    validations:
+      required: false
+
+  - type: textarea
+    id: opinion
+    attributes:
+      label: Your opinion
+      description: Would you use it for real work? What would make it more useful?
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Quoting
+      options:
+        - label: You may quote this review publicly (README, posts, product page) with my GitHub username.
+          required: false
