@@ -4,13 +4,15 @@
 
 Free edition of Quoteproof: AI research where every quote is checked against its source web page, word for word, before it reaches your report. MIT licensed.
 
-## Install (Claude Code)
+## Install
 
 ```bash
 git clone https://github.com/andre-arc/Quoteproof-Community.git ~/.claude/skills/quoteproof-community
 ```
 
 Update later with `git -C ~/.claude/skills/quoteproof-community pull`.
+
+It works with any model. **Claude Code** and **opencode** both read `~/.claude/skills/`. For other agents that support `SKILL.md` skills (Cursor, Codex CLI, Gemini CLI and others), clone it into that agent's skills folder instead. The agent needs to be able to run shell commands and search the web.
 
 Then ask your agent to research something, e.g. *"Research whether SQLite WAL mode helps concurrent writes."* The report lands in `.claude/outputs/<topic>.md` and ends with an audit line counting every quote checked, verified and dropped.
 
