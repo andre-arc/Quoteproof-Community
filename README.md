@@ -1,5 +1,7 @@
 # Quoteproof Community
 
+[![test](https://github.com/andre-arc/Quoteproof-Community/actions/workflows/test.yml/badge.svg)](https://github.com/andre-arc/Quoteproof-Community/actions/workflows/test.yml)
+
 <img src="https://raw.githubusercontent.com/andre-arc/Quoteproof/master/assets/logo-128.png" width="64" alt="Quoteproof logo">
 
 Free edition of Quoteproof: AI research where every quote is checked against its source web page, word for word, before it reaches your report. MIT licensed.
