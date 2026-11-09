@@ -10,7 +10,7 @@ Output: same claims with "status":
 
 Community edition limits: web pages only (PDF sources return fetch_failed), whole quotes
 only (quotes shortened with "…" are not supported), and no detection of quotes cited to
-the wrong page. Quoteproof Pro adds all three: https://www.agensi.io/skills/quoteproof
+the wrong page. Quoteproof Pro adds all three: https://www.agensi.io/r/ANDREARC?to=/skills/quoteproof&utm_source=community-checker
 
 Network: fetches each distinct `source` URL once (public http/https only, private and
 local addresses refused). Writes no files. Python 3.9+, standard library only.
@@ -29,7 +29,7 @@ from urllib.parse import urlparse
 MAX_CLAIMS = 200
 MAX_BYTES = 5_000_000
 TIMEOUT = 30
-PRO = "https://www.agensi.io/skills/quoteproof"
+PRO = "https://www.agensi.io/r/ANDREARC?to=/skills/quoteproof&utm_source=community-checker"
 
 
 def norm(s: str) -> str:

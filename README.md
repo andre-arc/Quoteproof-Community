@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)](#install)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-skill-d97757)](#install)
-[![Pro](https://img.shields.io/badge/Pro-Agensi-2a78d6)](https://www.agensi.io/skills/quoteproof)
+[![Pro](https://img.shields.io/badge/Pro-Agensi-2a78d6)](https://www.agensi.io/r/ANDREARC?to=/skills/quoteproof&utm_source=github-community)
 
 <img src="https://raw.githubusercontent.com/andre-arc/Quoteproof/master/assets/logo-128.png" width="64" alt="Quoteproof logo">
 
@@ -42,7 +42,7 @@ python3 scripts/verify_quotes.py claims.json   # [{"claim", "source", "quote"}, 
 
 ## Community vs Pro
 
-| | Community (free) | [Pro](https://www.agensi.io/skills/quoteproof) |
+| | Community (free) | [Pro](https://www.agensi.io/r/ANDREARC?to=/skills/quoteproof&utm_source=github-community) |
 | :-- | :-- | :-- |
 | 5-angle research pipeline | ✓ | ✓ |
 | Word-for-word quote check, web pages | ✓ | ✓ |
