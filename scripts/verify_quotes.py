@@ -24,11 +24,13 @@ import socket
 import sys
 import unicodedata
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 
 MAX_CLAIMS = 200
 MAX_BYTES = 5_000_000
 TIMEOUT = 30
+WORKERS = 8  # parallel page fetches; polite to sites, ~8x faster than one at a time
 PRO = "https://www.agensi.io/r/ANDREARC?to=/skills/quoteproof&utm_source=community-checker"
 
 
@@ -70,12 +72,14 @@ def fetch_text(url: str) -> str:
 def verify(claims: list, fetch=fetch_text) -> list:
     if len(claims) > MAX_CLAIMS:
         raise ValueError(f"max {MAX_CLAIMS} claims per call")
-    pages = {}
-    for src in {c["source"] for c in claims}:
+    def load(src):
         try:
-            pages[src] = fetch(src)
+            return fetch(src)
         except Exception as e:  # report per source, never fail the batch
-            pages[src] = e
+            return e
+    sources = sorted({c["source"] for c in claims})
+    with ThreadPoolExecutor(max_workers=WORKERS) as pool:  # different sites: fetch in parallel
+        pages = dict(zip(sources, pool.map(load, sources)))
     out = []
     for c in claims:
         quote = c.get("quote", "")
@@ -89,13 +93,19 @@ def verify(claims: list, fetch=fetch_text) -> list:
             r.update(status="verified")
         else:
             detail = "shortened quotes (…) are checked in Quoteproof Pro" if re.search(r"…|\.\.\.|\[[^\]]*\]", quote) else None
-            r.update(status="not_found", **({"detail": detail} if detail else {}))
+            if len(page.split()) < 20:  # a script-only or blocked page can't show a quote is missing
+                r.update(status="fetch_failed", detail="no readable text (needs JavaScript or a login, or blocks scripts)")
+            else:
+                r.update(status="not_found", **({"detail": detail} if detail else {}))
         out.append(r)
     return out
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1] in ("-h", "--help"):
+    if sys.argv[1:] in (["-h"], ["--help"]):
+        print(__doc__)
+        sys.exit(0)
+    if len(sys.argv) != 2:
         sys.exit(__doc__)
     with open(sys.argv[1]) as f:
         claims = json.load(f)

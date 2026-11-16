@@ -4,7 +4,7 @@ spec = importlib.util.spec_from_file_location("vq", pathlib.Path(__file__).paren
 vq = importlib.util.module_from_spec(spec); spec.loader.exec_module(vq)
 
 A, B = "https://a.example/doc", "https://b.example/doc"
-PAGES = {A: vq.norm("Readers do not block writers. Breakfast is served."), B: vq.norm("best balance between performance and safety")}
+PAGES = {A: vq.norm("Readers do not block writers. Breakfast is served. " + "Filler words on a real article page. " * 3), B: vq.norm("best balance between performance and safety")}
 
 def fake(url):
     if url.endswith(".pdf"):
@@ -25,6 +25,8 @@ got = [(r["status"], r.get("detail", "")[:20]) for r in vq.verify(claims, fetch=
 assert [s for s, _ in got] == ["verified", "not_found", "not_found", "not_found", "fetch_failed", "fetch_failed"], got
 assert "Pro" in vq.verify([claims[3]], fetch=fake)[0]["detail"]          # elided quote explains the limit
 assert "Pro" in vq.verify([claims[4]], fetch=fake)[0]["detail"]          # PDF explains the limit
+thin = vq.verify([{"claim": "js page", "source": B, "quote": "something nobody wrote"}], fetch=fake)[0]
+assert thin["status"] == "fetch_failed" and "JavaScript" in thin["detail"]  # a near-empty page can't show a quote is missing
 for bad in ["http://127.0.0.1/", "http://169.254.169.254/", "file:///etc/passwd", "http://[::1]/"]:
     assert not vq.public_url(bad), bad
 print("community checker: all checks passed")
