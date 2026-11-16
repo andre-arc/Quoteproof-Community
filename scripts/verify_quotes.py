@@ -25,7 +25,7 @@ import sys
 import unicodedata
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 
 MAX_CLAIMS = 200
 MAX_BYTES = 5_000_000
@@ -52,6 +52,7 @@ def public_url(url: str) -> bool:
 
 
 def fetch_text(url: str) -> str:
+    url = quote(url.strip(), safe=":/?#[]@!$&'()*+,;=%~")  # spaces and curly quotes break urllib
     if not public_url(url):
         raise ValueError("URL not allowed")
     req = urllib.request.Request(url, headers={"User-Agent": "quoteproof-community/1.0"})

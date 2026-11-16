@@ -33,6 +33,12 @@ def flaky(url):
     return vq.norm("checking your browser " * 10) if len(calls) == 1 else PAGES[A]
 assert vq.verify([{"claim": "retry", "source": A, "quote": "Readers do not block writers."}], fetch=flaky)[0]["status"] == "verified"
 assert len(calls) == 2   # a page with none of its quotes is fetched once more
+seen = []
+vq.urllib.request.urlopen = lambda req, timeout: (seen.append(req.full_url), (_ for _ in ()).throw(OSError("offline")))[1]
+vq.public_url = lambda u: True
+assert vq.verify([{"claim": "c", "source": "https://a.example/It’s a paper.html", "quote": "x"}])[0]["status"] == "fetch_failed"
+assert seen == ["https://a.example/It%E2%80%99s%20a%20paper.html"]   # encoded instead of "control characters" error
+spec.loader.exec_module(vq)   # restore the real functions
 for bad in ["http://127.0.0.1/", "http://169.254.169.254/", "file:///etc/passwd", "http://[::1]/"]:
     assert not vq.public_url(bad), bad
 print("community checker: all checks passed")
