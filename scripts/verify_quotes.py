@@ -80,6 +80,10 @@ def verify(claims: list, fetch=fetch_text) -> list:
     sources = sorted({c["source"] for c in claims})
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:  # different sites: fetch in parallel
         pages = dict(zip(sources, pool.map(load, sources)))
+        # a block page can pass as an article: if no quote cited to a page is on it, fetch it once more
+        missed = [s for s in sources if isinstance(pages[s], str) and not any(
+            norm(c.get("quote", "")) and f" {norm(c.get('quote', ''))} " in f" {pages[s]} " for c in claims if c["source"] == s)]
+        pages.update(zip(missed, pool.map(load, missed)))
     out = []
     for c in claims:
         quote = c.get("quote", "")

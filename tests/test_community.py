@@ -27,6 +27,12 @@ assert "Pro" in vq.verify([claims[3]], fetch=fake)[0]["detail"]          # elide
 assert "Pro" in vq.verify([claims[4]], fetch=fake)[0]["detail"]          # PDF explains the limit
 thin = vq.verify([{"claim": "js page", "source": B, "quote": "something nobody wrote"}], fetch=fake)[0]
 assert thin["status"] == "fetch_failed" and "JavaScript" in thin["detail"]  # a near-empty page can't show a quote is missing
+calls = []
+def flaky(url):
+    calls.append(url)
+    return vq.norm("checking your browser " * 10) if len(calls) == 1 else PAGES[A]
+assert vq.verify([{"claim": "retry", "source": A, "quote": "Readers do not block writers."}], fetch=flaky)[0]["status"] == "verified"
+assert len(calls) == 2   # a page with none of its quotes is fetched once more
 for bad in ["http://127.0.0.1/", "http://169.254.169.254/", "file:///etc/passwd", "http://[::1]/"]:
     assert not vq.public_url(bad), bad
 print("community checker: all checks passed")
